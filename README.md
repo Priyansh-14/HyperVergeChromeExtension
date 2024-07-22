@@ -1,6 +1,6 @@
 # HyperVerge Digital Notice Board
 
-Part of placement drive hackathon
+Part of Placement Drive Hackathon for HyperVerge
 
 ## Install the dependencies
 
