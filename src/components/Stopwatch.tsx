@@ -37,6 +37,7 @@ const Stopwatch: React.FC<StopwatchProps> = ({ minutes, isRunning }) => {
       seconds: 0,
     });
   }, [minutes]);
+
   useEffect(() => {
     if (isRunning) {
       const countDownDate = new Date().getTime() + minutes * 60 * 1000;

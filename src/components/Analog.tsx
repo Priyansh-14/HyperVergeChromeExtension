@@ -1,18 +1,24 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Clock from "react-clock";
 import "react-clock/dist/Clock.css"; // Importing the CSS for react-clock
 import "../styles/react-clock.css";
 
-export default function Analog() {
-  const [value, setValue] = useState(new Date());
+interface AnalogProps {
+  isRunningClock: boolean;
+  setTime: (val: Date) => void;
+  time: Date;
+}
 
+export default function Analog({ setTime, isRunningClock, time }: AnalogProps) {
   useEffect(() => {
-    const interval = setInterval(() => setValue(new Date()), 1000);
+    if (!isRunningClock) return;
+    const interval = setInterval(() => setTime(new Date()), 1000);
+    return () => clearInterval(interval);
+  }, [isRunningClock]);
 
-    return () => {
-      clearInterval(interval);
-    };
-  }, []);
-
-  return <Clock value={value} />;
+  return (
+    <div>
+      <Clock value={time} />
+    </div>
+  );
 }
