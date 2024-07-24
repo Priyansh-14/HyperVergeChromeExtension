@@ -1,11 +1,10 @@
 import { useState } from 'react'
-import './styles/App.css'
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
-    <>
+    <div className='bg-[#2a2a2a] h-screen'>
       <h1>Digital Notice Board</h1>
       <div className="card text-green-700">
         <button onClick={() => setCount((count) => count + 1)}>
@@ -13,7 +12,7 @@ function App() {
         </button>
       </div>
 
-    </>
+    </div>
   )
 }
 
