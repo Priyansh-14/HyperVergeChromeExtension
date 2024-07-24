@@ -26,9 +26,9 @@ const PomodoroTimer = () => {
     sessionStorage.setItem("timer", JSON.stringify(timers));
   }, [timers]);
   const handleStart = () => {
-    setIsRunningClock(!isRunningClock);
+    setIsRunningClock((prev) => !prev);
     setTime(new Date());
-    setIsRunning(!isRunning);
+    setIsRunning((prev) => !prev);
   };
 
   return (
@@ -40,7 +40,12 @@ const PomodoroTimer = () => {
       <CardContent className="flex flex-col justify-center items-center gap-6">
         <PomodoroSettings timers={timers} setTimers={setTimers} />
         <Analog isRunningClock={isRunningClock} setTime={setTime} time={time} />
-        <Stopwatch minutes={timers.workTime} isRunning={isRunning} />
+        <Stopwatch
+          minutes={timers.workTime}
+          isRunning={isRunning}
+          setIsRunning={setIsRunning}
+          setIsRunningClock={setIsRunningClock}
+        />
       </CardContent>
       <CardFooter className="flex items-center justify-center ">
         <Button

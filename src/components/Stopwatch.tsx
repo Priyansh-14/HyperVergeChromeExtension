@@ -3,9 +3,16 @@ import { useCallback, useEffect, useRef, useState } from "react";
 interface StopwatchProps {
   minutes: number;
   isRunning: boolean;
+  setIsRunning: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsRunningClock: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const Stopwatch: React.FC<StopwatchProps> = ({ minutes, isRunning }) => {
+const Stopwatch: React.FC<StopwatchProps> = ({
+  minutes,
+  isRunning,
+  setIsRunning,
+  setIsRunningClock,
+}) => {
   const [countDownTime, setCountDownTime] = useState({
     minutes,
     seconds: 0,
@@ -13,6 +20,7 @@ const Stopwatch: React.FC<StopwatchProps> = ({ minutes, isRunning }) => {
   const [remainingTime, setRemainingTime] = useState(minutes * 60 * 1000);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const endTimeRef = useRef<number | null>(null);
+  const initialMinutes = minutes;
 
   const getTimeDifference = useCallback((endTime: number) => {
     const currentTime = new Date().getTime();
@@ -22,12 +30,15 @@ const Stopwatch: React.FC<StopwatchProps> = ({ minutes, isRunning }) => {
     );
     const seconds = Math.floor((timeDifference % (60 * 1000)) / 1000);
 
-    if (timeDifference < 0) {
+    if (timeDifference <= 0) {
+      setIsRunning((prev) => !prev);
+      setIsRunningClock((prev) => !prev);
+      clearInterval(intervalRef.current!);
       setCountDownTime({
-        minutes: 0,
+        minutes: initialMinutes,
         seconds: 0,
       });
-      clearInterval(intervalRef.current!);
+      setRemainingTime(initialMinutes * 60 * 1000);
     } else {
       setCountDownTime({
         minutes,
