@@ -14,6 +14,7 @@ import Analog from "../Analog";
 
 const PomodoroTimer = () => {
   const [time, setTime] = useState(new Date());
+  const [isWorkTime, setIsWorkTime] = useState(true);
   const [isRunningClock, setIsRunningClock] = useState(false);
   const [timers, setTimers] = useState(() => {
     const savedTimers = sessionStorage.getItem("timer");
@@ -34,7 +35,9 @@ const PomodoroTimer = () => {
   return (
     <Card className="w-80 aspect-[10/12] rounded-2xl bg-[#bfc1b5] relative ml-20 mt-14">
       <CardHeader className="mt-8">
-        <CardTitle className="text-center">Pomodoro </CardTitle>
+        <CardTitle className="text-center">
+          {isWorkTime ? "Pomodoro" : "Break"}
+        </CardTitle>
         <CardDescription className="hidden">A Pomodoro Timer</CardDescription>
       </CardHeader>
       <CardContent className="flex flex-col justify-center items-center gap-6">
@@ -42,9 +45,10 @@ const PomodoroTimer = () => {
         <Analog isRunningClock={isRunningClock} setTime={setTime} time={time} />
         <Stopwatch
           minutes={timers.workTime}
+          breakTime={timers.breakTime}
           isRunning={isRunning}
-          setIsRunning={setIsRunning}
-          setIsRunningClock={setIsRunningClock}
+          setIsWorkTime={setIsWorkTime}
+          isWorkTime={isWorkTime}
         />
       </CardContent>
       <CardFooter className="flex items-center justify-center ">

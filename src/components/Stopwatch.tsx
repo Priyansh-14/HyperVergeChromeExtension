@@ -2,16 +2,18 @@ import { useCallback, useEffect, useRef, useState } from "react";
 
 interface StopwatchProps {
   minutes: number;
+  breakTime: number;
   isRunning: boolean;
-  setIsRunning: React.Dispatch<React.SetStateAction<boolean>>;
-  setIsRunningClock: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsWorkTime: React.Dispatch<React.SetStateAction<boolean>>;
+  isWorkTime: boolean;
 }
 
 const Stopwatch: React.FC<StopwatchProps> = ({
   minutes,
   isRunning,
-  setIsRunning,
-  setIsRunningClock,
+  setIsWorkTime,
+  breakTime,
+  isWorkTime,
 }) => {
   const [countDownTime, setCountDownTime] = useState({
     minutes,
@@ -31,14 +33,21 @@ const Stopwatch: React.FC<StopwatchProps> = ({
     const seconds = Math.floor((timeDifference % (60 * 1000)) / 1000);
 
     if (timeDifference <= 0) {
-      setIsRunning((prev) => !prev);
-      setIsRunningClock((prev) => !prev);
       clearInterval(intervalRef.current!);
-      setCountDownTime({
-        minutes: initialMinutes,
-        seconds: 0,
-      });
-      setRemainingTime(initialMinutes * 60 * 1000);
+      if (isWorkTime) {
+        setCountDownTime({
+          minutes: breakTime,
+          seconds: 0,
+        });
+        setRemainingTime(breakTime * 60 * 1000);
+      } else {
+        setCountDownTime({
+          minutes: initialMinutes,
+          seconds: 0,
+        });
+        setRemainingTime(initialMinutes * 60 * 1000);
+      }
+      setIsWorkTime((prev) => !prev);
     } else {
       setCountDownTime({
         minutes,
