@@ -32,6 +32,12 @@ const Stopwatch: React.FC<StopwatchProps> = ({ minutes, isRunning }) => {
   }, []);
 
   useEffect(() => {
+    setCountDownTime({
+      minutes,
+      seconds: 0,
+    });
+  }, [minutes]);
+  useEffect(() => {
     if (isRunning) {
       const countDownDate = new Date().getTime() + minutes * 60 * 1000;
 
@@ -45,7 +51,7 @@ const Stopwatch: React.FC<StopwatchProps> = ({ minutes, isRunning }) => {
 
   return (
     <div className="flex items-center justify-center">
-      <p className="font-semibold text-2xl">
+      <p className="text-2xl font-semibold">
         {String(countDownTime.minutes).padStart(2, "0")}:
         {String(countDownTime.seconds).padStart(2, "0")}
       </p>
