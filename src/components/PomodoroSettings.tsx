@@ -18,6 +18,7 @@ interface PomodoroSettingsProps {
 }
 
 const PomodoroSettings: FC<PomodoroSettingsProps> = ({ timers, setTimers }) => {
+
     const handleTimeChange = (e: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setTimers((prevTimers) => ({
@@ -29,12 +30,18 @@ const PomodoroSettings: FC<PomodoroSettingsProps> = ({ timers, setTimers }) => {
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <Button className="absolute top-2 right-2" size="icon" type="button" variant="link">< Settings /></Button>
+                <Button
+                    className="absolute top-2 right-2"
+                    size="icon"
+                    type="button"
+                    variant="link">
+                    < Settings />
+                </Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">
                 <DialogHeader>
                     <DialogTitle>Edit Timer</DialogTitle>
-                    <DialogDescription className="">
+                    <DialogDescription>
                         Make changes to your timer here. Click save when you're done.
                     </DialogDescription>
                 </DialogHeader>
@@ -43,7 +50,7 @@ const PomodoroSettings: FC<PomodoroSettingsProps> = ({ timers, setTimers }) => {
                     type="number"
                     id="workTime"
                     name="workTime"
-                    min={5}
+                    min={1}
                     max={60}
                     value={timers.workTime}
                     onChange={handleTimeChange} />
@@ -52,7 +59,7 @@ const PomodoroSettings: FC<PomodoroSettingsProps> = ({ timers, setTimers }) => {
                     type="number"
                     id="breakTime"
                     name="breakTime"
-                    min={5}
+                    min={1}
                     max={60}
                     value={timers.breakTime}
                     onChange={handleTimeChange} />

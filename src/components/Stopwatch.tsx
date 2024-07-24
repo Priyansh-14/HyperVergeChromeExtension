@@ -15,6 +15,7 @@ const Stopwatch: React.FC<StopwatchProps> = ({
   breakTime,
   isWorkTime,
 }) => {
+
   const [countDownTime, setCountDownTime] = useState({
     minutes,
     seconds: 0,
@@ -55,7 +56,7 @@ const Stopwatch: React.FC<StopwatchProps> = ({
       });
       setRemainingTime(timeDifference);
     }
-  }, []);
+  }, [breakTime, initialMinutes, isWorkTime, setIsWorkTime]);
 
   useEffect(() => {
     setCountDownTime({

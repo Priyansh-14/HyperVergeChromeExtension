@@ -1,3 +1,4 @@
+import GoogleSlides from "./components/widgets/GoogleSlides";
 import PomodoroTimer from "./components/widgets/PomodoroTimer";
 
 function App() {
@@ -7,7 +8,10 @@ function App() {
         Digital Notice Board
       </h1>
       <div className="card text-green-700"></div>
-      <PomodoroTimer />
+      <div className="flex flex-col lg:flex-row justify-evenly gap-2 mt-14">
+        <PomodoroTimer />
+        <GoogleSlides />
+      </div>
     </div>
   );
 }
