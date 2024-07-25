@@ -47,6 +47,10 @@ const PomodoroTimer = () => {
     ),
     [isWorkTime]
   );
+  const pomodoroSettings = useMemo(
+    () => <PomodoroSettings timers={timers} setTimers={setTimers} />,
+    [timers]
+  );
 
   const cardFooter = useMemo(
     () => (
@@ -69,7 +73,7 @@ const PomodoroTimer = () => {
     <Card className="w-80 h-96 rounded-2xl bg-[#bfc1b5] relative">
       {cardHeader}
       <CardContent className="flex flex-col justify-center items-center gap-6">
-        <PomodoroSettings timers={timers} setTimers={setTimers} />
+        {pomodoroSettings}
         <Analog isRunningClock={isRunningClock} setTime={setTime} time={time} />
         <Stopwatch
           minutes={timers.workTime}
